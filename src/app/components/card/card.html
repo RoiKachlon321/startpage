@@ -3,6 +3,8 @@
     {{ category().name }}
     @if (bookmarkService.editMode()) {
       <span class="card-controls">
+        <button (click)="moveCategoryUp()" title="Move up (left)">&#8593;</button>
+        <button (click)="moveCategoryDown()" title="Move down (right)">&#8595;</button>
         <button (click)="editCategory()" title="Edit category">&#9998;</button>
         <button (click)="deleteCategory()" title="Delete category">&times;</button>
       </span>

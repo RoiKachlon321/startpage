@@ -54,6 +54,14 @@ export class Card {
     });
   }
 
+  moveCategoryUp(): void {
+    this.bookmarkService.moveCategoryUp(this.category().id);
+  }
+
+  moveCategoryDown(): void {
+    this.bookmarkService.moveCategoryDown(this.category().id);
+  }
+
   editCategory(): void {
     this.bookmarkService.categoryModal.set({ category: this.category() });
   }

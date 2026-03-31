@@ -128,6 +128,22 @@ export class BookmarkService {
     });
   }
 
+  moveCategoryUp(catId: string): void {
+    this.mutate(d => {
+      const idx = d.categories.findIndex(c => c.id === catId);
+      if (idx <= 0) return;
+      [d.categories[idx - 1], d.categories[idx]] = [d.categories[idx], d.categories[idx - 1]];
+    });
+  }
+
+  moveCategoryDown(catId: string): void {
+    this.mutate(d => {
+      const idx = d.categories.findIndex(c => c.id === catId);
+      if (idx === -1 || idx >= d.categories.length - 1) return;
+      [d.categories[idx], d.categories[idx + 1]] = [d.categories[idx + 1], d.categories[idx]];
+    });
+  }
+
   // ─── Category CRUD ───
 
   addCategory(name: string, color: CardColor): void {
