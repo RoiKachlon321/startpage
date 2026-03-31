@@ -54,6 +54,8 @@ Open `http://localhost:7777`. That's it — your startpage is running.
 
 > Port `7777` is the default. Change it with `PORT=9999 python3 server.py` or edit the `PORT` variable in `server.py`.
 
+> This stops when you close the terminal. To keep it running permanently, see [Auto-Start on Login](#auto-start-on-login) below.
+
 ### 3. Add your bookmarks
 
 1. Press `e` to enter edit mode
@@ -81,9 +83,9 @@ To export from your browser: Safari → File → Export Bookmarks, Chrome → Bo
 
 Hover the `?` in the bottom-right corner for a quick reference.
 
-## Set as Browser Homepage
+## Auto-Start on Login
 
-You want `server.py` running all the time so the page is always available. Pick your OS:
+The server stops when you close the terminal. To keep it running permanently (and auto-start when you log in), set it up as a background service. Pick your OS:
 
 > All commands below should be run from the project root.
 
