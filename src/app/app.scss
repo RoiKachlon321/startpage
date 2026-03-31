@@ -4,6 +4,10 @@
   min-height: 100vh;
 }
 
+:host(.editing) {
+  padding-bottom: 60px;
+}
+
 #hint-status {
   position: fixed;
   bottom: 24px;

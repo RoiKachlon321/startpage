@@ -12,9 +12,10 @@ import { MoveModal } from './components/move-modal/move-modal';
   imports: [Grid, SearchOverlay, BookmarkModal, CategoryModal, MoveModal, EditToolbar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  host: { '[class.editing]': 'bookmarkService.editMode()' },
 })
 export class App implements OnInit {
-  private readonly bookmarkService = inject(BookmarkService);
+  protected readonly bookmarkService = inject(BookmarkService);
   private readonly searchOverlay = viewChild(SearchOverlay);
 
   private hintMode = false;
@@ -87,6 +88,7 @@ export class App implements OnInit {
         break;
       case 'e':
         event.preventDefault();
+        if (this.hintMode) this.clearHints();
         this.bookmarkService.toggleEditMode();
         break;
       case 'j':
