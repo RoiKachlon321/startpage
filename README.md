@@ -40,6 +40,7 @@ browser ──load──▶ localStorage (if exists)
 ```bash
 git clone https://github.com/RoiKachlon321/startpage.git
 cd startpage
+cp public/bookmarks.example.json public/bookmarks.json
 npm install
 npm run build
 ```

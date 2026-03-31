@@ -38,6 +38,9 @@ testem.log
 /typings
 __screenshots__/
 
+# Personal bookmarks
+public/bookmarks.json
+
 # System files
 .DS_Store
 Thumbs.db
