@@ -165,7 +165,6 @@ Your bookmarks live in `bookmarks.json`. You can edit this file directly or use 
 
 ```json
 {
-  "version": 1,
   "categories": [
     {
       "id": "c1",

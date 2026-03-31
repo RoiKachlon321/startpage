@@ -30,7 +30,7 @@ export class BookmarkService {
       this.data.set(seed);
       this.persist();
     } catch {
-      this.data.set({ version: 1, lastModified: new Date().toISOString(), categories: [] });
+      this.data.set({ lastModified: new Date().toISOString(), categories: [] });
     }
   }
 

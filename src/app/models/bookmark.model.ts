@@ -34,7 +34,6 @@ export interface BookmarkCategory {
 }
 
 export interface BookmarkData {
-  version: number;
   lastModified: string;
   categories: BookmarkCategory[];
 }
