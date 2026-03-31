@@ -157,7 +157,7 @@ This startpage is designed with keyboard-first navigation in mind. It works beau
 
 The startpage handles its own hint mode (`f`) and search (`s`) for bookmarks, while your vim extension handles everything else — link following on other sites, tab switching, history navigation. They complement each other without conflicting.
 
-**Bonus:** Vim extensions like Vimlike remove the annoying auto-focus on the URL bar when opening a new tab, so keyboard shortcuts on this page work immediately. And since you might miss the URL bar for quick searches, the built-in search (`s`) has a Google fallback — type anything that doesn't match a bookmark and hit Enter to search Google.
+**Bonus:** Since this startpage replaces the default new tab page, it removes the annoying auto-focus on the URL bar — keyboard shortcuts work immediately. And since you might miss the URL bar for quick searches, the built-in search (`s`) has a Google fallback — type anything that doesn't match a bookmark and hit Enter to search Google.
 
 ## Data Format
 
