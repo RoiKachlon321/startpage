@@ -41,7 +41,7 @@ browser ──load──▶ localStorage (if exists)
 git clone https://github.com/RoiKachlon321/startpage.git
 cd startpage
 npm install
-ng build
+npm run build
 ```
 
 ### 2. Run the server
@@ -192,7 +192,7 @@ Your bookmarks live in `bookmarks.json`. You can edit this file directly or use 
 
 **Available colors:** `blue`, `green`, `purple`, `orange`, `red`, `cyan`, `pink`, `teal`
 
-> **For development:** `ng serve` works for UI development but won't auto-save to disk (no `server.py`). Use `python3 server.py` for the full experience.
+> **For development:** `npm start` works for UI development but won't auto-save to disk (no `server.py`). Use `python3 server.py` for the full experience.
 
 ## License
 
