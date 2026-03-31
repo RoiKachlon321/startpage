@@ -114,6 +114,8 @@ export class BookmarkService {
       }
       const toCat = d.categories.find(c => c.id === toCatId);
       if (!toCat) return;
+      const sectionName = section.name || 'Bookmarks';
+      section.name = `${fromCat.name} - ${sectionName}`;
       toCat.sections.push(section);
     });
   }
