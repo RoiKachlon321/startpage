@@ -150,6 +150,8 @@ To stop it: delete `startpage.lnk` from `shell:startup` (type that in the Run di
 
 Bookmarks are stored in two places: localStorage (fast loading) and `bookmarks.json` on disk (persistent backup). When you use `server.py`, every edit auto-saves to both — no manual export needed. If you ever clear browser data, bookmarks reload from the file automatically.
 
+> **Note:** If you're using `ng serve` for development, auto-save to file won't work (no `server.py` running). It falls back to localStorage only. Use `server.py` for the full experience.
+
 ```json
 {
   "version": 1,
