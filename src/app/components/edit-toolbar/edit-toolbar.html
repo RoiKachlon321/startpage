@@ -5,5 +5,5 @@
     <button (click)="exportData()">Export</button>
     <button class="done-btn" (click)="done()">Done</button>
   </div>
-  <input #fileInput type="file" accept=".json" style="display:none" (change)="onFileSelected($event)">
+  <input #fileInput type="file" accept=".json,.html" style="display:none" (change)="onFileSelected($event)">
 }

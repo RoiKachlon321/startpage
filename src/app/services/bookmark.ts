@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import {
   BookmarkCategory,
   BookmarkData,
@@ -8,10 +8,12 @@ import {
   CardColor,
   CategoryModalState,
 } from '../models/bookmark.model';
+import { BookmarkParser } from './bookmark-parser';
 
 @Injectable({ providedIn: 'root' })
 export class BookmarkService {
   private readonly STORAGE_KEY = 'startpage-data';
+  private readonly parser = inject(BookmarkParser);
 
   readonly data = signal<BookmarkData | null>(null);
   readonly editMode = signal(false);
@@ -147,11 +149,16 @@ export class BookmarkService {
     URL.revokeObjectURL(url);
   }
 
-  importData(json: string): void {
+  importData(content: string): void {
     try {
-      const parsed: BookmarkData = JSON.parse(json);
-      if (!parsed.categories || !Array.isArray(parsed.categories)) {
-        throw new Error('Invalid format');
+      let parsed: BookmarkData;
+      if (this.parser.isHtml(content)) {
+        parsed = this.parser.parseHtml(content);
+      } else {
+        parsed = JSON.parse(content);
+        if (!parsed.categories || !Array.isArray(parsed.categories)) {
+          throw new Error('Invalid format');
+        }
       }
       this.data.set(parsed);
       this.persist();

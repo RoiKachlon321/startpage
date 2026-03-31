@@ -61,6 +61,12 @@ Open `http://localhost:7777`. That's it — your startpage is running.
 3. Press `Esc` or click **Done** when finished
 4. Your changes are saved automatically — both in the browser and to `bookmarks.json` on disk
 
+**Already have bookmarks?** Click **Import** in edit mode. It accepts:
+- Our JSON format (from a previous export)
+- **Safari / Chrome / Firefox bookmark exports** (HTML files) — folders become categories, subfolders become sections
+
+To export from your browser: Safari → File → Export Bookmarks, Chrome → Bookmarks Manager → ⋮ → Export Bookmarks.
+
 ## Keyboard Shortcuts
 
 | Key | Action |
