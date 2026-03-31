@@ -21,8 +21,42 @@ export class App implements OnInit {
   private typed = '';
   private hints: { el: HTMLElement; key: string; hint: HTMLElement }[] = [];
 
+  private readonly FONT_KEY = 'startpage-fontsize';
+  private readonly DEFAULT_FONT = 14;
+  private readonly MIN_FONT = 10;
+  private readonly MAX_FONT = 22;
+
   async ngOnInit(): Promise<void> {
     await this.bookmarkService.init();
+    this.applyFontSize(this.getCurrentFontSize());
+  }
+
+  increaseFontSize(): void {
+    const current = this.getCurrentFontSize();
+    if (current < this.MAX_FONT) this.setFontSize(current + 1);
+  }
+
+  decreaseFontSize(): void {
+    const current = this.getCurrentFontSize();
+    if (current > this.MIN_FONT) this.setFontSize(current - 1);
+  }
+
+  resetFontSize(): void {
+    this.setFontSize(this.DEFAULT_FONT);
+  }
+
+  private getCurrentFontSize(): number {
+    const stored = localStorage.getItem(this.FONT_KEY);
+    return stored ? parseInt(stored, 10) : this.DEFAULT_FONT;
+  }
+
+  private setFontSize(size: number): void {
+    localStorage.setItem(this.FONT_KEY, size.toString());
+    this.applyFontSize(size);
+  }
+
+  private applyFontSize(size: number): void {
+    document.documentElement.style.setProperty('--bk-font-size', size + 'px');
   }
 
   @HostListener('document:keydown', ['$event'])

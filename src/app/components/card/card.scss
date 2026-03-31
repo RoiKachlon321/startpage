@@ -44,7 +44,7 @@ a {
   gap: 8px;
   color: #b8b8cc;
   text-decoration: none;
-  font-size: 14px;
+  font-size: var(--bk-font-size, 14px);
   padding: 3px 5px;
   margin: 1px -5px;
   border-radius: 8px;

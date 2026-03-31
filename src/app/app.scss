@@ -21,10 +21,40 @@
   box-shadow: 0 4px 24px #00000066;
 }
 
-.help-trigger {
+.bottom-controls {
   position: fixed;
   bottom: 12px;
   right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 50;
+}
+
+.font-size-control {
+  display: flex;
+  gap: 2px;
+
+  button {
+    background: #1a1a28;
+    border: 1px solid #2a2a3d;
+    color: #555570;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.15s, border-color 0.15s;
+
+    &:hover {
+      color: #b8b8cc;
+      border-color: #3d3d5c;
+    }
+  }
+}
+
+.help-trigger {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -37,7 +67,6 @@
   align-items: center;
   justify-content: center;
   cursor: default;
-  z-index: 50;
   transition: color 0.15s, border-color 0.15s;
 
   &:hover {

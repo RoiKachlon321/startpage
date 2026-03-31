@@ -6,15 +6,22 @@
 <app-move-modal />
 <app-edit-toolbar />
 
-<div class="help-trigger">
-  ?
-  <div class="help-tooltip">
-    <div class="help-row"><kbd>f</kbd> <span>Hint mode — jump to any link</span></div>
-    <div class="help-row"><kbd>s</kbd> <span>Search bookmarks</span></div>
-    <div class="help-row"><kbd>e</kbd> <span>Toggle edit mode</span></div>
-    <div class="help-row"><kbd>j</kbd> / <kbd>k</kbd> <span>Scroll down / up</span></div>
-    <div class="help-row"><kbd>d</kbd> / <kbd>u</kbd> <span>Half-page down / up</span></div>
-    <div class="help-row"><kbd>g</kbd> / <kbd>G</kbd> <span>Top / bottom</span></div>
-    <div class="help-row"><kbd>Esc</kbd> <span>Exit current mode</span></div>
+<div class="bottom-controls">
+  <div class="font-size-control">
+    <button (click)="decreaseFontSize()" title="Smaller text">A-</button>
+    <button (click)="resetFontSize()" title="Reset text size">A</button>
+    <button (click)="increaseFontSize()" title="Larger text">A+</button>
+  </div>
+  <div class="help-trigger">
+    ?
+    <div class="help-tooltip">
+      <div class="help-row"><kbd>f</kbd> <span>Hint mode — jump to any link</span></div>
+      <div class="help-row"><kbd>s</kbd> <span>Search bookmarks</span></div>
+      <div class="help-row"><kbd>e</kbd> <span>Toggle edit mode</span></div>
+      <div class="help-row"><kbd>j</kbd> / <kbd>k</kbd> <span>Scroll down / up</span></div>
+      <div class="help-row"><kbd>d</kbd> / <kbd>u</kbd> <span>Half-page down / up</span></div>
+      <div class="help-row"><kbd>g</kbd> / <kbd>G</kbd> <span>Top / bottom</span></div>
+      <div class="help-row"><kbd>Esc</kbd> <span>Exit current mode</span></div>
+    </div>
   </div>
 </div>
