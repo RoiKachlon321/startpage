@@ -1,0 +1,48 @@
+<div class="card" [class]="'c-' + category().color">
+  <h2>
+    {{ category().name }}
+    @if (bookmarkService.editMode()) {
+      <span class="card-controls">
+        <button (click)="editCategory()" title="Edit category">&#9998;</button>
+        <button (click)="deleteCategory()" title="Delete category">&times;</button>
+      </span>
+    }
+  </h2>
+
+  @for (section of category().sections; track section.id) {
+    @if (section.name) {
+      <h3>
+        {{ section.name }}
+        @if (bookmarkService.editMode()) {
+          <button class="section-btn" (click)="renameSection($event, section.id, section.name)" title="Rename">&#9998;</button>
+          <button class="section-btn" (click)="deleteSection($event, section.id)" title="Delete">&times;</button>
+        }
+      </h3>
+    }
+
+    @for (bk of section.bookmarks; track bk.id) {
+      <a [href]="bk.url" (click)="onBookmarkClick($event, bk.url)">
+        <span class="icon" [attr.data-letter]="faviconService.getFirstLetter(bk.name)">
+          <img [src]="faviconService.getUrl(bk.url, bk.customIcon)"
+               width="14" height="14" loading="lazy" decoding="async"
+               (error)="onImgError($event)">
+        </span>
+        <span class="bk-name">{{ bk.name }}</span>
+        @if (bookmarkService.editMode()) {
+          <span class="bk-controls">
+            <button (click)="editBookmark($event, bk.id, section.id)" title="Edit">&#9998;</button>
+            <button (click)="deleteBookmark($event, bk.id)" title="Delete">&times;</button>
+          </span>
+        }
+      </a>
+    }
+
+    @if (bookmarkService.editMode()) {
+      <button class="add-bk-btn" (click)="addBookmark(section.id)">+ Add bookmark</button>
+    }
+  }
+
+  @if (bookmarkService.editMode()) {
+    <button class="add-section-btn" (click)="addSection()">+ Add section</button>
+  }
+</div>

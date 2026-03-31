@@ -1,0 +1,128 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: #0f0f17ee;
+  z-index: 200;
+  padding: 15vh 48px 48px;
+  overflow-y: auto;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.search-box {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.input-wrap {
+  position: relative;
+
+  input {
+    display: block;
+    width: 100%;
+    background: #1a1a28;
+    border: 1px solid #2a2a3d;
+    border-radius: 16px;
+    padding: 18px 52px 18px 24px;
+    font-size: 20px;
+    color: #e2e2e8;
+    outline: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      border-color: #7aa2f7;
+      box-shadow: 0 0 0 3px rgba(122, 162, 247, 0.15), 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    &::placeholder { color: #555570; }
+  }
+}
+
+.go-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #7aa2f7;
+  border: none;
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  color: #0f0f17;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.7; }
+}
+
+.results {
+  max-width: 620px;
+  margin: 8px auto 0;
+  border-radius: 14px;
+  overflow: hidden;
+
+  &.has-results {
+    background: #16162280;
+    border: 1px solid #2a2a3d;
+    padding: 6px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #b8b8cc;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    transition: background 0.12s, color 0.12s;
+
+    &:hover, &.selected {
+      background: rgba(122, 162, 247, 0.08);
+      color: #ffffff;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+  }
+
+  .category {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #555570;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .google-row {
+    border-top: 1px solid #2a2a3d;
+    margin-top: 4px;
+    padding-top: 12px;
+    color: #8888a8;
+
+    strong { color: #b8b8cc; }
+
+    &.selected, &:hover {
+      background: rgba(66, 133, 244, 0.1);
+      color: #b8b8cc;
+    }
+  }
+}

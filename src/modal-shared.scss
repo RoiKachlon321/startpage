@@ -1,0 +1,107 @@
+@mixin overlay {
+  position: fixed;
+  inset: 0;
+  background: #0f0f17dd;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.1s ease;
+}
+
+@mixin modal {
+  background: #1a1a28;
+  border: 1px solid #2a2a3d;
+  border-radius: 16px;
+  padding: 24px;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+@mixin modal-title {
+  color: #e2e2e8;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+@mixin field {
+  margin-bottom: 14px;
+}
+
+@mixin label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #8888a8;
+  margin-bottom: 6px;
+}
+
+@mixin hint {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.6;
+}
+
+@mixin input {
+  display: block;
+  width: 100%;
+  background: #0f0f17;
+  border: 1px solid #2a2a3d;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #e2e2e8;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+
+  &:focus { border-color: #7aa2f7; }
+  &::placeholder { color: #444460; }
+}
+
+@mixin actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+@mixin btn-cancel {
+  background: none;
+  border: 1px solid #2a2a3d;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #8888a8;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+
+  &:hover {
+    border-color: #3d3d5c;
+    color: #e2e2e8;
+  }
+}
+
+@mixin btn-save {
+  background: #7aa2f7;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f0f17;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.85; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

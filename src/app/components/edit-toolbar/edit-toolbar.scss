@@ -1,0 +1,45 @@
+.toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a28;
+  border-top: 1px solid #2a2a3d;
+  padding: 10px 24px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  z-index: 100;
+  animation: slideUp 0.15s ease;
+
+  button {
+    background: #0f0f17;
+    border: 1px solid #2a2a3d;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #b8b8cc;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.15s, color 0.15s;
+
+    &:hover {
+      border-color: #3d3d5c;
+      color: #e2e2e8;
+    }
+  }
+
+  .done-btn {
+    background: #7aa2f7;
+    border-color: #7aa2f7;
+    color: #0f0f17;
+    font-weight: 600;
+
+    &:hover { opacity: 0.85; }
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}

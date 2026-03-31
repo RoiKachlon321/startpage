@@ -1,0 +1,10 @@
+.grid {
+  columns: 5;
+  column-gap: 8px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) { .grid { columns: 3; } }
+@media (max-width: 768px) { .grid { columns: 2; } }
+@media (max-width: 480px) { .grid { columns: 1; } }

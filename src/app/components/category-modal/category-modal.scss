@@ -1,0 +1,33 @@
+@use '../../../modal-shared' as m;
+
+.overlay { @include m.overlay; }
+.modal { @include m.modal; }
+h3 { @include m.modal-title; }
+.field { @include m.field; }
+label { @include m.label; }
+input { @include m.input; }
+.actions { @include m.actions; }
+.btn-cancel { @include m.btn-cancel; }
+.btn-save { @include m.btn-save; }
+
+.color-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.1s;
+
+  &:hover { transform: scale(1.1); }
+
+  &.active {
+    border-color: #e2e2e8;
+    transform: scale(1.1);
+  }
+}

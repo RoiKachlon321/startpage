@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "lastModified": "2026-03-31T00:00:00Z",
+  "categories": [
+    {
+      "id": "c1", "name": "General", "color": "blue",
+      "sections": [
+        { "id": "s1", "name": null, "bookmarks": [
+          { "id": "b1", "name": "YouTube", "url": "https://www.youtube.com/", "customIcon": null },
+          { "id": "b2", "name": "Gmail", "url": "https://mail.google.com/", "customIcon": null },
+          { "id": "b3", "name": "Google Calendar", "url": "https://calendar.google.com/", "customIcon": null },
+          { "id": "b4", "name": "Reddit", "url": "https://www.reddit.com/", "customIcon": null }
+        ]}
+      ]
+    },
+    {
+      "id": "c2", "name": "Dev", "color": "cyan",
+      "sections": [
+        { "id": "s2", "name": null, "bookmarks": [
+          { "id": "b5", "name": "GitHub", "url": "https://github.com/", "customIcon": null },
+          { "id": "b6", "name": "Stack Overflow", "url": "https://stackoverflow.com/", "customIcon": null },
+          { "id": "b7", "name": "MDN Web Docs", "url": "https://developer.mozilla.org/", "customIcon": null }
+        ]}
+      ]
+    },
+    {
+      "id": "c3", "name": "AI", "color": "purple",
+      "sections": [
+        { "id": "s3", "name": null, "bookmarks": [
+          { "id": "b8", "name": "ChatGPT", "url": "https://chatgpt.com/", "customIcon": null },
+          { "id": "b9", "name": "Claude", "url": "https://claude.ai/", "customIcon": null },
+          { "id": "b10", "name": "Gemini", "url": "https://gemini.google.com/", "customIcon": null }
+        ]}
+      ]
+    },
+    {
+      "id": "c4", "name": "Social", "color": "pink",
+      "sections": [
+        { "id": "s4", "name": null, "bookmarks": [
+          { "id": "b11", "name": "Twitter / X", "url": "https://x.com/", "customIcon": null },
+          { "id": "b12", "name": "LinkedIn", "url": "https://www.linkedin.com/", "customIcon": null },
+          { "id": "b13", "name": "Discord", "url": "https://discord.com/", "customIcon": null }
+        ]}
+      ]
+    },
+    {
+      "id": "c5", "name": "Docs", "color": "green",
+      "sections": [
+        { "id": "s5", "name": null, "bookmarks": [
+          { "id": "b14", "name": "Angular", "url": "https://angular.dev/", "customIcon": null },
+          { "id": "b15", "name": "TypeScript", "url": "https://www.typescriptlang.org/docs/", "customIcon": null },
+          { "id": "b16", "name": "Tailwind CSS", "url": "https://tailwindcss.com/docs", "customIcon": null }
+        ]}
+      ]
+    }
+  ]
+}
