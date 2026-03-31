@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { BookmarkCategory } from '../../models/bookmark.model';
 import { BookmarkService } from '../../services/bookmark';
 import { FaviconService } from '../../services/favicon';
@@ -14,6 +14,12 @@ export class Card {
 
   protected readonly bookmarkService = inject(BookmarkService);
   protected readonly faviconService = inject(FaviconService);
+
+  readonly otherCategories = computed(() => {
+    const all = this.bookmarkService.data()?.categories || [];
+    const currentId = this.category().id;
+    return all.filter(c => c.id !== currentId);
+  });
 
   onBookmarkClick(event: Event, url: string): void {
     if (this.bookmarkService.editMode()) {
@@ -78,6 +84,15 @@ export class Card {
     if (confirm('Delete this section and its bookmarks?')) {
       this.bookmarkService.deleteSection(this.category().id, sectionId);
     }
+  }
+
+  moveBookmark(event: Event, bookmarkId: string): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.bookmarkService.moveModalState.set({
+      fromCatId: this.category().id,
+      bookmarkId,
+    });
   }
 
   onImgError(event: Event): void {

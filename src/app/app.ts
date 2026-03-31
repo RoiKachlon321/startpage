@@ -5,10 +5,11 @@ import { SearchOverlay } from './components/search-overlay/search-overlay';
 import { BookmarkModal } from './components/bookmark-modal/bookmark-modal';
 import { CategoryModal } from './components/category-modal/category-modal';
 import { EditToolbar } from './components/edit-toolbar/edit-toolbar';
+import { MoveModal } from './components/move-modal/move-modal';
 
 @Component({
   selector: 'app-root',
-  imports: [Grid, SearchOverlay, BookmarkModal, CategoryModal, EditToolbar],
+  imports: [Grid, SearchOverlay, BookmarkModal, CategoryModal, MoveModal, EditToolbar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

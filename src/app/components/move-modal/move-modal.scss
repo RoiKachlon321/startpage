@@ -1,0 +1,44 @@
+@use '../../../modal-shared' as m;
+
+.overlay { @include m.overlay; }
+.modal { @include m.modal; }
+h3 { @include m.modal-title; }
+.actions { @include m.actions; }
+.btn-cancel { @include m.btn-cancel; }
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.cat-option {
+  display: block;
+  width: 100%;
+  background: #0f0f17;
+  border: 1px solid #2a2a3d;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #b8b8cc;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s;
+
+  &:hover {
+    border-color: #3d3d5c;
+    color: #e2e2e8;
+  }
+}
+
+.accent-blue:hover { border-color: #7aa2f7; color: #7aa2f7; }
+.accent-green:hover { border-color: #9ece6a; color: #9ece6a; }
+.accent-purple:hover { border-color: #bb9af7; color: #bb9af7; }
+.accent-orange:hover { border-color: #e0af68; color: #e0af68; }
+.accent-red:hover { border-color: #f7768e; color: #f7768e; }
+.accent-cyan:hover { border-color: #7dcfff; color: #7dcfff; }
+.accent-pink:hover { border-color: #ff79c6; color: #ff79c6; }
+.accent-teal:hover { border-color: #73daca; color: #73daca; }

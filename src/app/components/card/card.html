@@ -30,6 +30,7 @@
         <span class="bk-name">{{ bk.name }}</span>
         @if (bookmarkService.editMode()) {
           <span class="bk-controls">
+            <button (click)="moveBookmark($event, bk.id)" title="Move">&#8594;</button>
             <button (click)="editBookmark($event, bk.id, section.id)" title="Edit">&#9998;</button>
             <button (click)="deleteBookmark($event, bk.id)" title="Delete">&times;</button>
           </span>

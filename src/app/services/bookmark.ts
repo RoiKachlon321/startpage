@@ -19,6 +19,7 @@ export class BookmarkService {
   readonly editMode = signal(false);
   readonly bookmarkModal = signal<BookmarkModalState | null>(null);
   readonly categoryModal = signal<CategoryModalState | null>(null);
+  readonly moveModalState = signal<{ fromCatId: string; bookmarkId: string } | null>(null);
 
   async init(): Promise<void> {
     const stored = localStorage.getItem(this.STORAGE_KEY);
@@ -75,6 +76,28 @@ export class BookmarkService {
           sec.bookmarks.splice(idx, 1);
           return;
         }
+      }
+    });
+  }
+
+  moveBookmark(fromCatId: string, bookmarkId: string, toCatId: string): void {
+    this.mutate(d => {
+      let bookmark: BookmarkItem | null = null;
+      const fromCat = d.categories.find(c => c.id === fromCatId);
+      if (!fromCat) return;
+      for (const sec of fromCat.sections) {
+        const idx = sec.bookmarks.findIndex(b => b.id === bookmarkId);
+        if (idx !== -1) {
+          bookmark = sec.bookmarks.splice(idx, 1)[0];
+          break;
+        }
+      }
+      if (!bookmark) return;
+      const toCat = d.categories.find(c => c.id === toCatId);
+      if (!toCat) return;
+      const defaultSection = toCat.sections[0];
+      if (defaultSection) {
+        defaultSection.bookmarks.push(bookmark);
       }
     });
   }

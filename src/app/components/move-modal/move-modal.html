@@ -1,0 +1,17 @@
+@if (visible()) {
+  <div class="overlay" (click)="onOverlayClick($event)" (keydown.escape)="close()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>Move to category</h3>
+      <div class="category-list">
+        @for (cat of categories(); track cat.id) {
+          <button class="cat-option" [class]="'accent-' + cat.color" (click)="moveTo(cat.id)">
+            {{ cat.name }}
+          </button>
+        }
+      </div>
+      <div class="actions">
+        <button class="btn-cancel" (click)="close()">Cancel</button>
+      </div>
+    </div>
+  </div>
+}
