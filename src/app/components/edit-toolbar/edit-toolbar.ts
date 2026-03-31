@@ -15,8 +15,12 @@ export class EditToolbar {
     this.bookmarkService.categoryModal.set({ category: null });
   }
 
-  exportData(): void {
-    this.bookmarkService.exportData();
+  exportJson(): void {
+    this.bookmarkService.exportJson();
+  }
+
+  exportHtml(): void {
+    this.bookmarkService.exportHtml();
   }
 
   triggerImport(): void {

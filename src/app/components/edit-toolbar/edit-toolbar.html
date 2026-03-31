@@ -2,7 +2,8 @@
   <div class="toolbar">
     <button (click)="addCategory()">+ Category</button>
     <button (click)="triggerImport()">Import</button>
-    <button (click)="exportData()">Export</button>
+    <button (click)="exportJson()">Export JSON</button>
+    <button (click)="exportHtml()">Export HTML</button>
     <button class="done-btn" (click)="done()">Done</button>
   </div>
   <input #fileInput type="file" accept=".json,.html" style="display:none" (change)="onFileSelected($event)">

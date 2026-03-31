@@ -202,14 +202,45 @@ export class BookmarkService {
 
   // ─── Export / Import ───
 
-  exportData(): void {
+  exportJson(): void {
     const d = this.data();
     if (!d) return;
-    const blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
+    this.downloadFile(JSON.stringify(d, null, 2), 'bookmarks.json', 'application/json');
+  }
+
+  exportHtml(): void {
+    const d = this.data();
+    if (!d) return;
+    let html = '<!DOCTYPE NETSCAPE-Bookmark-file-1>\n';
+    html += '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n';
+    html += '<TITLE>Bookmarks</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n';
+    for (const cat of d.categories) {
+      html += `    <DT><H3>${cat.name}</H3>\n    <DL><p>\n`;
+      for (const sec of cat.sections) {
+        if (sec.name) {
+          html += `        <DT><H3>${sec.name}</H3>\n        <DL><p>\n`;
+          for (const bk of sec.bookmarks) {
+            html += `            <DT><A HREF="${bk.url}">${bk.name}</A>\n`;
+          }
+          html += '        </DL><p>\n';
+        } else {
+          for (const bk of sec.bookmarks) {
+            html += `        <DT><A HREF="${bk.url}">${bk.name}</A>\n`;
+          }
+        }
+      }
+      html += '    </DL><p>\n';
+    }
+    html += '</DL><p>\n';
+    this.downloadFile(html, 'bookmarks.html', 'text/html');
+  }
+
+  private downloadFile(content: string, filename: string, type: string): void {
+    const blob = new Blob([content], { type });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'bookmarks.json';
+    a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
   }
