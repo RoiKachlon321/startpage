@@ -4,7 +4,7 @@ A keyboard-driven bookmark homepage you fully control. No accounts, no cloud —
 
 Built with Angular 21. Includes a tiny Python server that serves the page and auto-saves your edits to disk.
 
-![Dark themed startpage with categorized bookmarks in a masonry grid](https://img.shields.io/badge/theme-dark-0f0f17?style=flat-square) ![Angular 21](https://img.shields.io/badge/Angular-21-dd0031?style=flat-square)
+![screenshot](public/screenshot.png)
 
 ## Features
 
