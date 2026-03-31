@@ -54,7 +54,7 @@ Open `http://localhost:7777`. That's it — your startpage is running.
 
 > Port `7777` is the default. Change it with `PORT=9999 python3 server.py` or edit the `PORT` variable in `server.py`.
 
-### 3. Make it yours
+### 3. Add your bookmarks
 
 1. Press `e` to enter edit mode
 2. Add your categories and bookmarks
