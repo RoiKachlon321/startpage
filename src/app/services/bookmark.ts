@@ -192,6 +192,19 @@ export class BookmarkService {
     const d = this.data();
     if (!d) return;
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(d));
+    this.syncToFile(d);
+  }
+
+  private async syncToFile(data: BookmarkData): Promise<void> {
+    try {
+      await fetch('/api/bookmarks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+    } catch {
+      // Server not available (e.g. ng serve dev mode) — localStorage is still saved
+    }
   }
 
   private findSection(d: BookmarkData, catId: string, sectionId: string): BookmarkSection | null {

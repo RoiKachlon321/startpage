@@ -73,8 +73,7 @@ ng build
 #### Quick test (stops when you close the terminal)
 
 ```bash
-cd dist/startpage/browser
-python3 -m http.server 7777
+python3 server.py
 ```
 
 #### Always-on (macOS — auto-starts on login)
@@ -92,12 +91,8 @@ cat > ~/Library/LaunchAgents/com.startpage.plist << EOF
     <key>ProgramArguments</key>
     <array>
         <string>/usr/bin/python3</string>
-        <string>-m</string>
-        <string>http.server</string>
-        <string>7777</string>
+        <string>$(pwd)/server.py</string>
     </array>
-    <key>WorkingDirectory</key>
-    <string>$(pwd)/dist/startpage/browser</string>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
@@ -123,8 +118,7 @@ cat > ~/.config/systemd/user/startpage.service << EOF
 Description=Startpage server
 
 [Service]
-WorkingDirectory=$(pwd)/dist/startpage/browser
-ExecStart=/usr/bin/python3 -m http.server 7777
+ExecStart=/usr/bin/python3 $(pwd)/server.py
 Restart=always
 
 [Install]
@@ -143,8 +137,7 @@ Run this in PowerShell from the project root:
 $WshShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\startpage.lnk")
 $Shortcut.TargetPath = "pythonw"
-$Shortcut.Arguments = "-m http.server 7777"
-$Shortcut.WorkingDirectory = "$(Get-Location)\dist\startpage\browser"
+$Shortcut.Arguments = "$(Get-Location)\server.py"
 $Shortcut.WindowStyle = 7
 $Shortcut.Save()
 ```
@@ -155,9 +148,7 @@ To stop it: delete `startpage.lnk` from `shell:startup` (type that in the Run di
 
 ## Data Format
 
-Bookmarks live in localStorage for fast loading. On first visit, they're seeded from `public/bookmarks.json`. If you ever clear browser data, they reload from that file automatically.
-
-**Keep your seed file up to date:** after making changes in the browser, click Export (edit mode → Export) and replace `public/bookmarks.json` with the downloaded file. That way your on-disk copy always matches what you see.
+Bookmarks are stored in two places: localStorage (fast loading) and `bookmarks.json` on disk (persistent backup). When you use `server.py`, every edit auto-saves to both — no manual export needed. If you ever clear browser data, bookmarks reload from the file automatically.
 
 ```json
 {
