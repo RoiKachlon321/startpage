@@ -22,7 +22,11 @@ export class MoveModal {
   moveTo(toCatId: string): void {
     const state = this.bookmarkService.moveModalState();
     if (!state) return;
-    this.bookmarkService.moveBookmark(state.fromCatId, state.bookmarkId, toCatId);
+    if (state.sectionId) {
+      this.bookmarkService.moveSection(state.fromCatId, state.sectionId, toCatId);
+    } else if (state.bookmarkId) {
+      this.bookmarkService.moveBookmark(state.fromCatId, state.bookmarkId, toCatId);
+    }
     this.close();
   }
 

@@ -14,6 +14,7 @@
       <h3>
         {{ section.name }}
         @if (bookmarkService.editMode()) {
+          <button class="section-btn" (click)="moveSection($event, section.id)" title="Move">&#8594;</button>
           <button class="section-btn" (click)="renameSection($event, section.id, section.name)" title="Rename">&#9998;</button>
           <button class="section-btn" (click)="deleteSection($event, section.id)" title="Delete">&times;</button>
         }

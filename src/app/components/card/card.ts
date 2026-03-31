@@ -86,6 +86,14 @@ export class Card {
     }
   }
 
+  moveSection(event: Event, sectionId: string): void {
+    event.stopPropagation();
+    this.bookmarkService.moveModalState.set({
+      fromCatId: this.category().id,
+      sectionId,
+    });
+  }
+
   moveBookmark(event: Event, bookmarkId: string): void {
     event.stopPropagation();
     event.preventDefault();
