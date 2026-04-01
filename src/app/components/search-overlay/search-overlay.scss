@@ -126,13 +126,13 @@
     }
   }
 
-  .gemini-row {
+  .ai-row {
     color: #8888a8;
 
     strong { color: #b8b8cc; }
 
     &.selected, &:hover {
-      background: rgba(142, 117, 178, 0.1);
+      background: rgba(16, 163, 127, 0.1);
       color: #b8b8cc;
     }
   }

@@ -79,10 +79,10 @@ export class SearchOverlay {
     const q = this.query().trim();
     const idx = this.selectedIndex();
 
-    if (q.toLowerCase().startsWith('gemini ')) {
-      const geminiQuery = q.slice(7).trim();
-      if (geminiQuery) {
-        window.location.href = `https://gemini.google.com/app?q=${encodeURIComponent(geminiQuery)}`;
+    if (q.toLowerCase().startsWith('ai ')) {
+      const aiQuery = q.slice(3).trim();
+      if (aiQuery) {
+        window.location.href = `https://chatgpt.com/?q=${encodeURIComponent(aiQuery)}`;
         return;
       }
     }
@@ -90,7 +90,7 @@ export class SearchOverlay {
     if (idx === items.length && q) {
       window.location.href = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
     } else if (idx === items.length + 1 && q) {
-      window.location.href = `https://gemini.google.com/app?q=${encodeURIComponent(q)}`;
+      window.location.href = `https://chatgpt.com/?q=${encodeURIComponent(q)}`;
     } else if (items[idx]) {
       window.location.href = items[idx].url;
     } else if (q) {
