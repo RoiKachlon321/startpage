@@ -56,8 +56,8 @@ export class SearchOverlay {
   onKeydown(event: KeyboardEvent): void {
     const items = this.filteredItems();
     const q = this.query().trim();
-    const hasGoogle = q.length > 0;
-    const maxIdx = hasGoogle ? items.length : items.length - 1;
+    const extraRows = q.length > 0 ? 2 : 0;
+    const maxIdx = items.length + extraRows - 1;
 
     if (event.key === 'ArrowDown' || (event.key === 'Tab' && !event.shiftKey)) {
       event.preventDefault();
@@ -79,8 +79,18 @@ export class SearchOverlay {
     const q = this.query().trim();
     const idx = this.selectedIndex();
 
+    if (q.toLowerCase().startsWith('gemini ')) {
+      const geminiQuery = q.slice(7).trim();
+      if (geminiQuery) {
+        window.location.href = `https://gemini.google.com/app?q=${encodeURIComponent(geminiQuery)}`;
+        return;
+      }
+    }
+
     if (idx === items.length && q) {
       window.location.href = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+    } else if (idx === items.length + 1 && q) {
+      window.location.href = `https://gemini.google.com/app?q=${encodeURIComponent(q)}`;
     } else if (items[idx]) {
       window.location.href = items[idx].url;
     } else if (q) {
