@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import {
   BookmarkCategory,
   BookmarkData,
@@ -18,6 +18,23 @@ export class BookmarkService {
   readonly data = signal<BookmarkData | null>(null);
   readonly editMode = signal(false);
   readonly searchQuery = signal('');
+  readonly matchingIds = computed<Set<string>>(() => {
+    const q = this.searchQuery();
+    const d = this.data();
+    if (!q || !d) return new Set();
+    const ids = new Set<string>();
+    for (const cat of d.categories) {
+      const catMatch = cat.name.toLowerCase().includes(q);
+      for (const sec of cat.sections) {
+        for (const bk of sec.bookmarks) {
+          if (catMatch || bk.name.toLowerCase().includes(q)) {
+            ids.add(bk.id);
+          }
+        }
+      }
+    }
+    return ids;
+  });
   readonly bookmarkModal = signal<BookmarkModalState | null>(null);
   readonly categoryModal = signal<CategoryModalState | null>(null);
   readonly moveModalState = signal<{ fromCatId: string; bookmarkId?: string; sectionId?: string } | null>(null);

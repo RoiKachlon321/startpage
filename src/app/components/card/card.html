@@ -25,8 +25,8 @@
 
     @for (bk of section.bookmarks; track bk.id) {
       <a [href]="bk.url" (click)="onBookmarkClick($event, bk.url)"
-         [class.search-hit]="isSearchHit(bk.name)"
-         [class.search-dim]="hasActiveSearch() && !isSearchHit(bk.name)">
+         [class.search-hit]="matchingIds().has(bk.id)"
+         [class.search-dim]="hasActiveSearch() && !matchingIds().has(bk.id)">
         <span class="icon" [attr.data-letter]="faviconService.getFirstLetter(bk.name)">
           <img [src]="faviconService.getUrl(bk.url, bk.customIcon)"
                width="14" height="14" loading="lazy" decoding="async"
