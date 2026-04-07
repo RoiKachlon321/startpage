@@ -137,9 +137,11 @@ a:hover .bk-controls { display: flex; }
 a.search-hit {
   position: relative;
   z-index: 250;
-  background: rgba(122, 162, 247, 0.25);
-  color: #ffffff;
-  box-shadow: 0 0 12px rgba(122, 162, 247, 0.6), 0 0 4px rgba(122, 162, 247, 0.4);
+  color: #7aa2f7;
+
+  .icon {
+    box-shadow: 0 0 6px rgba(122, 162, 247, 0.5);
+  }
 }
 
 a.search-dim {
