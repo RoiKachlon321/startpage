@@ -22,18 +22,19 @@ export class BookmarkService {
     const q = this.searchQuery();
     const d = this.data();
     if (!q || !d) return new Set();
-    const ids = new Set<string>();
+    const ids: string[] = [];
     for (const cat of d.categories) {
       const catMatch = cat.name.toLowerCase().includes(q);
       for (const sec of cat.sections) {
         for (const bk of sec.bookmarks) {
           if (catMatch || bk.name.toLowerCase().includes(q)) {
-            ids.add(bk.id);
+            ids.push(bk.id);
+            if (ids.length > 3) return new Set();
           }
         }
       }
     }
-    return ids;
+    return new Set(ids);
   });
   readonly bookmarkModal = signal<BookmarkModalState | null>(null);
   readonly categoryModal = signal<CategoryModalState | null>(null);
