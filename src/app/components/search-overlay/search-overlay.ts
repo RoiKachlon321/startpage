@@ -33,17 +33,20 @@ export class SearchOverlay {
     this.query.set('');
     this.selectedIndex.set(0);
     this.filteredItems.set(this.allItems);
+    this.bookmarkService.searchQuery.set('');
     setTimeout(() => this.inputRef()?.nativeElement.focus(), 0);
   }
 
   close(): void {
     this.active.set(false);
+    this.bookmarkService.searchQuery.set('');
   }
 
   onInput(value: string): void {
     this.query.set(value);
     this.selectedIndex.set(0);
     const q = value.toLowerCase();
+    this.bookmarkService.searchQuery.set(q);
     if (!q) {
       this.filteredItems.set(this.allItems);
       return;

@@ -17,6 +17,7 @@ export class BookmarkService {
 
   readonly data = signal<BookmarkData | null>(null);
   readonly editMode = signal(false);
+  readonly searchQuery = signal('');
   readonly bookmarkModal = signal<BookmarkModalState | null>(null);
   readonly categoryModal = signal<CategoryModalState | null>(null);
   readonly moveModalState = signal<{ fromCatId: string; bookmarkId?: string; sectionId?: string } | null>(null);

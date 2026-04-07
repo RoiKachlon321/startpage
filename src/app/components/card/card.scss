@@ -134,6 +134,18 @@ a {
 
 a:hover .bk-controls { display: flex; }
 
+a.search-hit {
+  position: relative;
+  z-index: 250;
+  background: rgba(122, 162, 247, 0.25);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(122, 162, 247, 0.6), 0 0 4px rgba(122, 162, 247, 0.4);
+}
+
+a.search-dim {
+  opacity: 0.15;
+}
+
 .add-bk-btn,
 .add-section-btn {
   display: block;

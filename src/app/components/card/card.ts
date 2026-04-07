@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, Signal } from '@angular/core';
 import { BookmarkCategory } from '../../models/bookmark.model';
 import { BookmarkService } from '../../services/bookmark';
 import { FaviconService } from '../../services/favicon';
@@ -20,6 +20,17 @@ export class Card {
     const currentId = this.category().id;
     return all.filter(c => c.id !== currentId);
   });
+
+  readonly searchQuery: Signal<string> = this.bookmarkService.searchQuery;
+
+  isSearchHit(name: string): boolean {
+    const q = this.searchQuery();
+    return !!q && (name.toLowerCase().includes(q) || this.category().name.toLowerCase().includes(q));
+  }
+
+  hasActiveSearch(): boolean {
+    return !!this.searchQuery();
+  }
 
   onBookmarkClick(event: Event, url: string): void {
     if (this.bookmarkService.editMode()) {
