@@ -107,7 +107,7 @@ export class BookmarkService {
     });
   }
 
-  moveBookmark(fromCatId: string, bookmarkId: string, toCatId: string): void {
+  moveBookmark(fromCatId: string, bookmarkId: string, toCatId: string, toSectionId?: string): void {
     this.mutate(d => {
       let bookmark: BookmarkItem | null = null;
       const fromCat = d.categories.find(c => c.id === fromCatId);
@@ -122,9 +122,11 @@ export class BookmarkService {
       if (!bookmark) return;
       const toCat = d.categories.find(c => c.id === toCatId);
       if (!toCat) return;
-      const defaultSection = toCat.sections[0];
-      if (defaultSection) {
-        defaultSection.bookmarks.push(bookmark);
+      const target = toSectionId
+        ? toCat.sections.find(s => s.id === toSectionId) || toCat.sections[0]
+        : toCat.sections[0];
+      if (target) {
+        target.bookmarks.push(bookmark);
       }
     });
   }

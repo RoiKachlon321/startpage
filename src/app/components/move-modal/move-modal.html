@@ -7,6 +7,15 @@
           <button class="cat-option" [class]="'accent-' + cat.color" (click)="moveTo(cat.id)">
             {{ cat.name }}
           </button>
+          @if (isBookmarkMove()) {
+            @for (sec of cat.sections; track sec.id) {
+              @if (sec.name) {
+                <button class="section-option" [class]="'accent-' + cat.color" (click)="moveTo(cat.id, sec.id)">
+                  &rarr; {{ sec.name }}
+                </button>
+              }
+            }
+          }
         }
       </div>
       <div class="actions">

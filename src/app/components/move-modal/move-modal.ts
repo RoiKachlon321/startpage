@@ -19,13 +19,15 @@ export class MoveModal {
       .filter(c => c.id !== state.fromCatId);
   });
 
-  moveTo(toCatId: string): void {
+  readonly isBookmarkMove = computed(() => !!this.bookmarkService.moveModalState()?.bookmarkId);
+
+  moveTo(toCatId: string, toSectionId?: string): void {
     const state = this.bookmarkService.moveModalState();
     if (!state) return;
     if (state.sectionId) {
       this.bookmarkService.moveSection(state.fromCatId, state.sectionId, toCatId);
     } else if (state.bookmarkId) {
-      this.bookmarkService.moveBookmark(state.fromCatId, state.bookmarkId, toCatId);
+      this.bookmarkService.moveBookmark(state.fromCatId, state.bookmarkId, toCatId, toSectionId);
     }
     this.close();
   }
