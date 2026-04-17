@@ -26,18 +26,24 @@ export class SearchOverlay {
 
   private allItems: SearchItem[] = [];
   private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
+  private highlightTimer: ReturnType<typeof setTimeout> | null = null;
+
+  private readonly MAX_RESULTS = 15;
 
   open(): void {
     this.allItems = this.bookmarkService.getAllBookmarks();
     this.active.set(true);
     this.query.set('');
     this.selectedIndex.set(0);
-    this.filteredItems.set(this.allItems);
-    this.bookmarkService.searchQuery.set('');
-    setTimeout(() => this.inputRef()?.nativeElement.focus(), 0);
+    this.filteredItems.set([]);
+    setTimeout(() => {
+      const el = this.inputRef()?.nativeElement;
+      if (el) { el.value = ''; el.focus(); }
+    }, 0);
   }
 
   close(): void {
+    if (this.highlightTimer) clearTimeout(this.highlightTimer);
     this.active.set(false);
     this.bookmarkService.searchQuery.set('');
   }
@@ -46,14 +52,23 @@ export class SearchOverlay {
     this.query.set(value);
     this.selectedIndex.set(0);
     const q = value.toLowerCase();
-    this.bookmarkService.searchQuery.set(q);
     if (!q) {
-      this.filteredItems.set(this.allItems);
+      this.filteredItems.set([]);
+      if (this.highlightTimer) clearTimeout(this.highlightTimer);
+      this.bookmarkService.searchQuery.set('');
       return;
     }
-    this.filteredItems.set(
-      this.allItems.filter(i => i.name.toLowerCase().includes(q) || i.category.toLowerCase().includes(q))
-    );
+    const matches: SearchItem[] = [];
+    for (const item of this.allItems) {
+      if (item.name.toLowerCase().includes(q) || item.category.toLowerCase().includes(q)) {
+        matches.push(item);
+        if (matches.length >= this.MAX_RESULTS) break;
+      }
+    }
+    this.filteredItems.set(matches);
+
+    if (this.highlightTimer) clearTimeout(this.highlightTimer);
+    this.highlightTimer = setTimeout(() => this.bookmarkService.searchQuery.set(q), 200);
   }
 
   onKeydown(event: KeyboardEvent): void {

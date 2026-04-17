@@ -6,7 +6,6 @@
                type="text"
                placeholder="Search bookmarks..."
                autocomplete="off"
-               [value]="query()"
                (input)="onInput(searchInput.value)"
                (keydown)="onKeydown($event)">
         <button class="go-btn" (click)="submit()">&#x2192;</button>

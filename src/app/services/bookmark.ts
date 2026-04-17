@@ -40,28 +40,25 @@ export class BookmarkService {
   readonly categoryModal = signal<CategoryModalState | null>(null);
   readonly moveModalState = signal<{ fromCatId: string; bookmarkId?: string; sectionId?: string } | null>(null);
 
-  async init(): Promise<void> {
+  init(): void {
     const stored = localStorage.getItem(this.STORAGE_KEY);
     const local: BookmarkData | null = stored ? JSON.parse(stored) : null;
-
-    try {
-      const res = await fetch('./bookmarks.json');
-      const file: BookmarkData = await res.json();
-
-      if (!local || (file.lastModified && file.lastModified > (local.lastModified || ''))) {
-        this.data.set(file);
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(file));
-        return;
-      }
-    } catch {
-      // File not available (e.g. ng serve) — fall through to localStorage
-    }
 
     if (local) {
       this.data.set(local);
     } else {
       this.data.set({ lastModified: new Date().toISOString(), categories: [] });
     }
+
+    fetch('./bookmarks.json')
+      .then(res => res.json())
+      .then((file: BookmarkData) => {
+        if (file.lastModified && file.lastModified > (this.data()?.lastModified || '')) {
+          this.data.set(file);
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(file));
+        }
+      })
+      .catch(() => {});
   }
 
   toggleEditMode(): void {

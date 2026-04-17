@@ -27,8 +27,8 @@ export class App implements OnInit {
   private readonly MIN_FONT = 10;
   private readonly MAX_FONT = 22;
 
-  async ngOnInit(): Promise<void> {
-    await this.bookmarkService.init();
+  ngOnInit(): void {
+    this.bookmarkService.init();
     this.applyFontSize(this.getCurrentFontSize());
   }
 
@@ -195,40 +195,43 @@ export class App implements OnInit {
   }
 
   private generateKeys(links: NodeListOf<HTMLAnchorElement>): string[] {
-    const entries = Array.from(links).map(l => {
+    const entries = Array.from(links).map((l, i) => {
       const raw = (l.textContent || '').trim().toLowerCase();
       const clean = raw.replace(/[^a-z]/g, '');
       const words = raw.split(/\s+/).map(w => w.replace(/[^a-z]/g, '')).filter(w => w);
-      return { clean, words };
+      return { index: i, clean, words };
     });
-    const keys: string[] = [];
-    const used = new Set<string>();
 
-    for (const { clean, words } of entries) {
+    const sorted = [...entries].sort((a, b) => a.clean.localeCompare(b.clean));
+    const used = new Set<string>();
+    const keyByIndex = new Map<number, string>();
+
+    for (const { index, clean, words } of sorted) {
+      let key: string | null = null;
+
       if (!clean) {
-        const fb = this.findFallback(used);
-        if (fb) { keys.push(fb); used.add(fb); }
-        continue;
+        key = this.findFallback(used);
+      } else {
+        const first2 = clean.slice(0, 2);
+        if (first2.length === 2 && !used.has(first2)) {
+          key = first2;
+        } else if (words.length > 1 && words[0][0] && words[1][0]) {
+          const initials = words[0][0] + words[1][0];
+          if (!used.has(initials)) key = initials;
+        }
+        if (!key) {
+          for (const c of this.CHARS) {
+            const candidate = clean[0] + c;
+            if (!used.has(candidate)) { key = candidate; break; }
+          }
+        }
+        if (!key) key = this.findFallback(used);
       }
-      const first2 = clean.slice(0, 2);
-      if (first2.length === 2 && !used.has(first2)) {
-        keys.push(first2); used.add(first2); continue;
-      }
-      if (words.length > 1 && words[0][0] && words[1][0]) {
-        const initials = words[0][0] + words[1][0];
-        if (!used.has(initials)) { keys.push(initials); used.add(initials); continue; }
-      }
-      let found = false;
-      for (const c of this.CHARS) {
-        const candidate = clean[0] + c;
-        if (!used.has(candidate)) { keys.push(candidate); used.add(candidate); found = true; break; }
-      }
-      if (!found) {
-        const fb = this.findFallback(used);
-        if (fb) { keys.push(fb); used.add(fb); }
-      }
+
+      if (key) { keyByIndex.set(index, key); used.add(key); }
     }
-    return keys;
+
+    return entries.map(e => keyByIndex.get(e.index) || '');
   }
 
   private findFallback(used: Set<string>): string | null {
