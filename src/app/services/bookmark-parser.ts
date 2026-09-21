@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BookmarkCategory, BookmarkData, BookmarkItem, BookmarkSection, CardColor } from '../models/bookmark.model';
+import { BookmarkCategory, BookmarkItem, BookmarkSection, CardColor, FlatBookmarkData } from '../models/bookmark.model';
 
 const COLORS: CardColor[] = ['blue', 'green', 'cyan', 'purple', 'orange', 'pink', 'teal', 'red'];
 
@@ -13,7 +13,7 @@ export class BookmarkParser {
            (content.includes('<DL>') && content.includes('<DT>'));
   }
 
-  parseHtml(html: string): BookmarkData {
+  parseHtml(html: string): FlatBookmarkData {
     this.colorIndex = 0;
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');

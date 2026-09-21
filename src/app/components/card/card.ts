@@ -16,7 +16,7 @@ export class Card {
   protected readonly faviconService = inject(FaviconService);
 
   readonly otherCategories = computed(() => {
-    const all = this.bookmarkService.data()?.categories || [];
+    const all = this.bookmarkService.allCategories();
     const currentId = this.category().id;
     return all.filter(c => c.id !== currentId);
   });
@@ -38,7 +38,8 @@ export class Card {
     const cat = this.category();
     const section = cat.sections.find(s => s.id === sectionId);
     const bookmark = section?.bookmarks.find(b => b.id === bookmarkId) || null;
-    this.bookmarkService.bookmarkModal.set({ catId: cat.id, sectionId, bookmark });
+    const profileId = this.bookmarkService.profileIdOfCategory(cat.id) || '';
+    this.bookmarkService.bookmarkModal.set({ profileId, catId: cat.id, sectionId, bookmark });
   }
 
   deleteBookmark(event: Event, bookmarkId: string): void {
@@ -51,6 +52,7 @@ export class Card {
 
   addBookmark(sectionId: string): void {
     this.bookmarkService.bookmarkModal.set({
+      profileId: this.bookmarkService.profileIdOfCategory(this.category().id) || '',
       catId: this.category().id,
       sectionId,
       bookmark: null,
@@ -59,6 +61,10 @@ export class Card {
 
   moveCategoryUp(): void {
     this.bookmarkService.moveCategoryUp(this.category().id);
+  }
+
+  moveCategoryToProfile(): void {
+    this.bookmarkService.moveModalState.set({ fromCatId: this.category().id, toProfile: true });
   }
 
   moveCategoryDown(): void {

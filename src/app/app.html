@@ -1,4 +1,6 @@
-<app-grid />
+@for (profile of bookmarkService.data()?.profiles || []; track profile.id) {
+  <app-profile-band [profile]="profile" />
+}
 <div id="hint-status"></div>
 <app-search-overlay />
 <app-bookmark-modal />
@@ -16,7 +18,9 @@
     ?
     <div class="help-tooltip">
       <div class="help-row"><kbd>f</kbd> <span>Hint mode — jump to any link</span></div>
-      <div class="help-row"><kbd>s</kbd> <span>Search bookmarks</span></div>
+      <div class="help-row"><kbd>s</kbd> <span>Search current profile</span></div>
+      <div class="help-row"><kbd>S</kbd> <span>Search all profiles</span></div>
+      <div class="help-row"><kbd>A-Z</kbd> <span>Jump to profile with that badge letter</span></div>
       <div class="help-row"><kbd>e</kbd> <span>Toggle edit mode (↑↓ to reorder cards)</span></div>
       <div class="help-row"><kbd>j</kbd> / <kbd>k</kbd> <span>Scroll down / up</span></div>
       <div class="help-row"><kbd>d</kbd> / <kbd>u</kbd> <span>Half-page down / up</span></div>

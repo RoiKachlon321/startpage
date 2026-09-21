@@ -6,11 +6,13 @@
         <button (click)="moveCategoryUp()" title="Move up (left)">&#8593;</button>
         <button (click)="moveCategoryDown()" title="Move down (right)">&#8595;</button>
         <button (click)="editCategory()" title="Edit category">&#9998;</button>
+        <button (click)="moveCategoryToProfile()" title="Move to profile">&#8690;</button>
         <button (click)="deleteCategory()" title="Delete category">&times;</button>
       </span>
     }
   </h2>
 
+  <div class="card-body">
   @for (section of category().sections; track section.id) {
     @if (section.name) {
       <h3>
@@ -51,4 +53,5 @@
   @if (bookmarkService.editMode()) {
     <button class="add-section-btn" (click)="addSection()">+ Add section</button>
   }
+  </div>
 </div>

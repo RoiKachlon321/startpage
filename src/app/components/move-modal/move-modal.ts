@@ -15,11 +15,26 @@ export class MoveModal {
   readonly categories = computed(() => {
     const state = this.bookmarkService.moveModalState();
     if (!state) return [];
-    return (this.bookmarkService.data()?.categories || [])
+    return this.bookmarkService.allCategories()
       .filter(c => c.id !== state.fromCatId);
   });
 
   readonly isBookmarkMove = computed(() => !!this.bookmarkService.moveModalState()?.bookmarkId);
+  readonly isProfileMove = computed(() => !!this.bookmarkService.moveModalState()?.toProfile);
+
+  readonly profiles = computed(() => {
+    const state = this.bookmarkService.moveModalState();
+    if (!state?.toProfile) return [];
+    const fromId = this.bookmarkService.profileIdOfCategory(state.fromCatId);
+    return (this.bookmarkService.data()?.profiles ?? []).filter(p => p.id !== fromId);
+  });
+
+  moveCatToProfile(toProfileId: string): void {
+    const state = this.bookmarkService.moveModalState();
+    if (!state) return;
+    this.bookmarkService.moveCategoryToProfile(state.fromCatId, toProfileId);
+    this.close();
+  }
 
   moveTo(toCatId: string, toSectionId?: string): void {
     const state = this.bookmarkService.moveModalState();

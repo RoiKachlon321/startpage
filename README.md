@@ -21,17 +21,27 @@ Built with Angular 21. Includes a tiny Python server that serves the page and au
 ```
 browser ──edit──▶ localStorage (instant)
                   │
-                  └──POST──▶ server.py ──▶ bookmarks.json (on disk)
+                  └──POST──▶ server.py ──▶ data/bookmarks.json (on disk)
 
 browser ──load──▶ localStorage (if exists)
                   │
-                  └──fetch──▶ bookmarks.json (first visit / cleared cache)
+                  └──fetch──▶ data/bookmarks.json (first visit / cleared cache)
 ```
 
-- **`bookmarks.json`** is your persistent data — it lives on disk, survives browser clears, and is your backup
+- **`data/bookmarks.json`** is your persistent data — it lives **outside `dist/`**, so `npm run build` (which wipes `dist/`) can never delete it. It survives browser clears and is your backup.
 - **localStorage** is a fast cache so the page loads instantly
-- **`server.py`** serves the page AND handles saving — every time you edit a bookmark, it writes to `bookmarks.json` automatically
-- If you clear browser data, bookmarks reload from `bookmarks.json` on next visit — nothing is lost
+- **`server.py`** serves the page AND handles saving — every edit writes to `data/bookmarks.json` automatically
+- If you clear browser data, bookmarks reload from `data/bookmarks.json` on next visit — nothing is lost
+
+### Profiles
+
+Bookmarks are grouped into **profiles** (e.g. a project or life-area). Each profile is a labeled band showing all its categories, stacked down the page with separators.
+
+- **`p` then a key** — jump a profile band to the top (each profile has a single-char key shown in its badge)
+- **`s`** — search the current profile only
+- **`S`** — search across all profiles (each result shows which profile it lives in)
+
+Old flat `bookmarks.json` files auto-migrate into profiles on first load (categories named `"X - Y"` group under profile `X`).
 
 ## Getting Started
 
@@ -40,7 +50,8 @@ browser ──load──▶ localStorage (if exists)
 ```bash
 git clone https://github.com/RoiKachlon321/startpage.git
 cd startpage
-cp public/bookmarks.example.json public/bookmarks.json
+mkdir -p data
+cp public/bookmarks.example.json data/bookmarks.json
 npm install
 npm run build
 ```
@@ -62,7 +73,7 @@ Open `http://localhost:7777`. That's it — your startpage is running.
 1. Press `e` to enter edit mode
 2. Add your categories and bookmarks
 3. Press `Esc` or click **Done** when finished
-4. Your changes are saved automatically — both in the browser and to `bookmarks.json` on disk
+4. Your changes are saved automatically — both in the browser and to `data/bookmarks.json` on disk
 
 **Already have bookmarks?** Click **Import** in edit mode. It accepts:
 - Our JSON format (from a previous export)
@@ -170,7 +181,7 @@ The startpage handles its own hint mode (`f`) and search (`s`) for bookmarks, wh
 
 ## Data Format
 
-Your bookmarks live in `bookmarks.json`. You can edit this file directly or use the edit UI in the browser — both work.
+Your bookmarks live in `data/bookmarks.json` (outside `dist/`, so builds never touch it). You can edit this file directly or use the edit UI in the browser — both work.
 
 ```json
 {

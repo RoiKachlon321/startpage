@@ -1,5 +1,5 @@
 <div class="grid">
   @for (cat of categories(); track cat.id) {
-    <app-card [category]="cat" />
+    <app-card [category]="cat" [style.--cols]="cat.columns || 1" />
   }
 </div>

@@ -1,4 +1,4 @@
-:host { display: block; }
+:host { display: block; box-sizing: border-box; }
 
 .card {
   background: linear-gradient(145deg, #1a1a28, #161622);
@@ -7,6 +7,7 @@
   padding: 6px 8px;
   margin-bottom: 8px;
   break-inside: avoid;
+  overflow: hidden;
   transition: border-color 0.2s;
 
   &:hover { border-color: #3d3d5c; }
@@ -36,6 +37,17 @@ h3 {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.card-body {
+  columns: var(--cols, 1);
+  column-gap: 20px;
+}
+
+// Keep a link + a section header (with its items) from breaking across columns.
+.card-body > a,
+.card-body > h3 {
+  break-inside: avoid;
 }
 
 a {
@@ -88,6 +100,8 @@ a {
 .bk-name {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .card-controls {

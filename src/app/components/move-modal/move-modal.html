@@ -1,6 +1,17 @@
 @if (visible()) {
   <div class="overlay" (click)="onOverlayClick($event)" (keydown.escape)="close()">
     <div class="modal" (click)="$event.stopPropagation()">
+      @if (isProfileMove()) {
+        <h3>Move category to profile</h3>
+        <div class="category-list">
+          @for (p of profiles(); track p.id) {
+            <button class="cat-option accent-blue" (click)="moveCatToProfile(p.id)">{{ p.name }}</button>
+          }
+        </div>
+        <div class="actions">
+          <button class="btn-cancel" (click)="close()">Cancel</button>
+        </div>
+      } @else {
       <h3>Move to category</h3>
       <div class="category-list">
         @for (cat of categories(); track cat.id) {
@@ -21,6 +32,7 @@
       <div class="actions">
         <button class="btn-cancel" (click)="close()">Cancel</button>
       </div>
+      }
     </div>
   </div>
 }

@@ -1,0 +1,22 @@
+<section class="profile-band" [id]="'profile-' + profile().id">
+  <header class="band-header">
+    <h1 class="band-title">
+      @if (profile().jumpKey) {
+        <span class="jump-badge" title="Press this key to jump here">{{ profile().jumpKey }}</span>
+      }
+      {{ profile().name }}
+    </h1>
+    @if (bookmarkService.editMode()) {
+      <span class="band-controls">
+        <button (click)="moveUp()" title="Move profile up">&#8593;</button>
+        <button (click)="moveDown()" title="Move profile down">&#8595;</button>
+        <button (click)="rename()" title="Rename profile">&#9998;</button>
+        <button (click)="setJumpKey()" title="Set jump key">&#9166;</button>
+        <button (click)="addCategory()" title="Add category">+</button>
+        <button (click)="remove()" title="Delete profile">&times;</button>
+      </span>
+    }
+  </header>
+
+  <app-grid [categories]="profile().categories" />
+</section>

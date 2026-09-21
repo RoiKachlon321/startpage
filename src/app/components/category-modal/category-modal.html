@@ -22,6 +22,15 @@
         </div>
       </div>
 
+      <div class="field">
+        <label>Columns</label>
+        <div class="col-picker">
+          @for (n of [1, 2, 3, 4]; track n) {
+            <button class="col-swatch" [class.active]="columns() === n" (click)="columns.set(n)">{{ n }}</button>
+          }
+        </div>
+      </div>
+
       <div class="actions">
         <button class="btn-cancel" (click)="close()">Cancel</button>
         <button class="btn-save" (click)="save()">Save</button>

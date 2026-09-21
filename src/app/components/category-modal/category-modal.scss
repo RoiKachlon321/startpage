@@ -16,6 +16,29 @@ input { @include m.input; }
   flex-wrap: wrap;
 }
 
+.col-picker {
+  display: flex;
+  gap: 8px;
+}
+
+.col-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background: #0f0f17;
+  color: #b8b8cc;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+
+  &.active {
+    border-color: #e2e2e8;
+    color: #e2e2e8;
+  }
+}
+
 .color-swatch {
   width: 32px;
   height: 32px;

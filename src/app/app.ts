@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, OnInit, viewChild } from '@angular/core';
 import { BookmarkService } from './services/bookmark';
-import { Grid } from './components/grid/grid';
+import { ProfileBand } from './components/profile-band/profile-band';
 import { SearchOverlay } from './components/search-overlay/search-overlay';
 import { BookmarkModal } from './components/bookmark-modal/bookmark-modal';
 import { CategoryModal } from './components/category-modal/category-modal';
@@ -9,7 +9,7 @@ import { MoveModal } from './components/move-modal/move-modal';
 
 @Component({
   selector: 'app-root',
-  imports: [Grid, SearchOverlay, BookmarkModal, CategoryModal, MoveModal, EditToolbar],
+  imports: [ProfileBand, SearchOverlay, BookmarkModal, CategoryModal, MoveModal, EditToolbar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   host: { '[class.editing]': 'bookmarkService.editMode()' },
@@ -22,6 +22,7 @@ export class App implements OnInit {
   private typed = '';
   private hints: { el: HTMLElement; key: string; hint: HTMLElement }[] = [];
 
+
   private readonly FONT_KEY = 'startpage-fontsize';
   private readonly DEFAULT_FONT = 14;
   private readonly MIN_FONT = 10;
@@ -30,6 +31,25 @@ export class App implements OnInit {
   ngOnInit(): void {
     this.bookmarkService.init();
     this.applyFontSize(this.getCurrentFontSize());
+    setTimeout(() => this.trackActiveProfile(), 0);
+    window.addEventListener('scroll', () => this.trackActiveProfile(), { passive: true });
+  }
+
+  /** Set the profile whose band is nearest the viewport top (drives `s` search scope). */
+  private trackActiveProfile(): void {
+    const bands = document.querySelectorAll<HTMLElement>('.profile-band');
+    let bestId: string | null = null;
+    let bestTop = -Infinity;
+    bands.forEach(band => {
+      const top = band.getBoundingClientRect().top;
+      // The band whose top is closest to (but not far below) the fold line = active.
+      if (top <= 120 && top > bestTop) {
+        bestTop = top;
+        bestId = band.id.replace('profile-', '');
+      }
+    });
+    if (!bestId && bands.length) bestId = bands[0].id.replace('profile-', '');
+    this.bookmarkService.activeProfileId.set(bestId);
   }
 
   increaseFontSize(): void {
@@ -86,6 +106,9 @@ export class App implements OnInit {
       case 's':
         if (!editing) { event.preventDefault(); search?.open(); }
         break;
+      case 'S':
+        if (!editing) { event.preventDefault(); search?.open(this.bookmarkService.activeProfileId() ?? undefined); }
+        break;
       case 'e':
         event.preventDefault();
         if (this.hintMode) this.clearHints();
@@ -112,7 +135,19 @@ export class App implements OnInit {
       case 'Escape':
         if (editing) this.bookmarkService.toggleEditMode();
         break;
+      default:
+        if (!editing) this.tryJumpToProfile(event);
     }
+  }
+
+  /** Uppercase letter assigned to a profile scrolls that profile's band into view. */
+  private tryJumpToProfile(event: KeyboardEvent): void {
+    if (event.key.length !== 1) return;
+    const target = this.bookmarkService.data()?.profiles.find(p => p.jumpKey === event.key);
+    if (!target) return;
+    event.preventDefault();
+    const el = document.getElementById('profile-' + target.id);
+    if (el) window.scrollTo({ top: el.offsetTop - 12, behavior: 'auto' });
   }
 
   // ─── Hint System ───

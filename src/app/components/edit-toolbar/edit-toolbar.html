@@ -1,5 +1,6 @@
 @if (bookmarkService.editMode()) {
   <div class="toolbar">
+    <button (click)="addProfile()">+ Profile</button>
     <button (click)="addCategory()">+ Category</button>
     <button (click)="triggerImport()">Import</button>
     <button (click)="exportJson()">Export JSON</button>

@@ -11,6 +11,11 @@ export class EditToolbar {
   protected readonly bookmarkService = inject(BookmarkService);
   private readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
+  addProfile(): void {
+    const name = prompt('Profile name:');
+    if (name?.trim()) this.bookmarkService.addProfile(name.trim());
+  }
+
   addCategory(): void {
     this.bookmarkService.categoryModal.set({ category: null });
   }

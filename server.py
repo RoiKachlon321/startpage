@@ -6,9 +6,14 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
 PORT = int(os.environ.get("PORT", 7777))
-DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dist", "startpage", "browser")
+ROOT = os.path.dirname(os.path.abspath(__file__))
+DIR = os.path.join(ROOT, "dist", "startpage", "browser")
 ICON_DIR = os.path.join(DIR, "icons")
+# Data lives OUTSIDE dist/ so `ng build` (which wipes dist/) can never delete it.
+DATA_DIR = os.path.join(ROOT, "data")
+DATA_FILE = os.path.join(DATA_DIR, "bookmarks.json")
 os.makedirs(ICON_DIR, exist_ok=True)
+os.makedirs(DATA_DIR, exist_ok=True)
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -26,7 +31,24 @@ class Handler(SimpleHTTPRequestHandler):
         if parsed.path == "/api/favicon":
             self.handle_favicon(parsed)
             return
+        if parsed.path == "/bookmarks.json":
+            self.serve_bookmarks()
+            return
         super().do_GET()
+
+    def serve_bookmarks(self):
+        if not os.path.exists(DATA_FILE):
+            # No data yet: return empty so the app falls back cleanly.
+            self.send_response(404)
+            self.end_headers()
+            return
+        with open(DATA_FILE, "rb") as f:
+            body = f.read()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+        self.end_headers()
+        self.wfile.write(body)
 
     def handle_favicon(self, parsed):
         params = parse_qs(parsed.query)
@@ -67,7 +89,7 @@ class Handler(SimpleHTTPRequestHandler):
             body = self.rfile.read(length)
             try:
                 data = json.loads(body)
-                with open(os.path.join(DIR, "bookmarks.json"), "w") as f:
+                with open(DATA_FILE, "w") as f:
                     json.dump(data, f, indent=2)
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")

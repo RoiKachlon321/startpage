@@ -1,0 +1,72 @@
+.profile-band {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px 0 28px;
+  border-bottom: 2px solid #2a2a3d;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  // Offset scroll target so the title isn't flush against the viewport top.
+  scroll-margin-top: 12px;
+}
+
+.band-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  padding: 0 4px;
+}
+
+.band-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #e8e8f0;
+  text-transform: uppercase;
+}
+
+.jump-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: #7aa2f7;
+  color: #12121c;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.band-controls {
+  display: inline-flex;
+  gap: 4px;
+
+  button {
+    background: #1a1a28;
+    border: 1px solid #2a2a3d;
+    color: #8888a8;
+    font-size: 13px;
+    line-height: 1;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, border-color 0.15s;
+
+    &:hover {
+      color: #e8e8f0;
+      border-color: #3d3d5c;
+    }
+  }
+}

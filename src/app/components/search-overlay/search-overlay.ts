@@ -7,6 +7,8 @@ interface SearchItem {
   url: string;
   category: string;
   icon: string;
+  profile: string;
+  profileId: string;
 }
 
 @Component({
@@ -30,8 +32,17 @@ export class SearchOverlay {
 
   private readonly MAX_RESULTS = 15;
 
-  open(): void {
-    this.allItems = this.bookmarkService.getAllBookmarks();
+  /** Scope label shown in the overlay header. Empty = searching all profiles. */
+  readonly scopeLabel = signal('');
+
+  /**
+   * @param profileId when given, search only that profile; otherwise all profiles.
+   */
+  open(profileId?: string): void {
+    this.allItems = this.bookmarkService.getAllBookmarks(profileId);
+    const d = this.bookmarkService.data();
+    const scoped = profileId ? d?.profiles.find(p => p.id === profileId)?.name : '';
+    this.scopeLabel.set(scoped || '');
     this.active.set(true);
     this.query.set('');
     this.selectedIndex.set(0);

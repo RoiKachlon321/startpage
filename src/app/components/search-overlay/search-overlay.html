@@ -2,6 +2,7 @@
   <div class="overlay" (click)="onOverlayClick($event)">
     <div class="search-box">
       <div class="input-wrap">
+        <span class="scope-pill">{{ scopeLabel() || 'All profiles' }}</span>
         <input #searchInput
                type="text"
                placeholder="Search bookmarks..."
@@ -18,7 +19,7 @@
             <img [src]="faviconService.getUrl(item.url, item.icon || null)"
                  width="20" height="20" loading="lazy" (error)="onImgError($event)">
             {{ item.name }}
-            <span class="category">{{ item.category }}</span>
+            <span class="category">@if (!scopeLabel()) {<span class="result-profile">{{ item.profile }}</span> · }{{ item.category }}</span>
           </a>
         }
         @if (query().trim()) {

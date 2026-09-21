@@ -21,6 +21,22 @@
 .input-wrap {
   position: relative;
 
+  .scope-pill {
+    position: absolute;
+    top: -26px;
+    left: 4px;
+    background: #1a1a28;
+    border: 1px solid #2a2a3d;
+    color: #7aa2f7;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-family: 'SF Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
   input {
     display: block;
     width: 100%;
@@ -110,6 +126,8 @@
     color: #555570;
     margin-left: auto;
     flex-shrink: 0;
+
+    .result-profile { color: #7aa2f7; }
   }
 
   .google-row {

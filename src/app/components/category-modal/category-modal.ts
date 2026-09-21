@@ -16,6 +16,7 @@ export class CategoryModal {
 
   readonly name = signal('');
   readonly selectedColor = signal<CardColor>('blue');
+  readonly columns = signal(1);
 
   readonly isEditing = computed(() => !!this.bookmarkService.categoryModal()?.category);
   readonly title = computed(() => this.isEditing() ? 'Edit Category' : 'Add Category');
@@ -28,9 +29,11 @@ export class CategoryModal {
       if (state.category) {
         this.name.set(state.category.name);
         this.selectedColor.set(state.category.color);
+        this.columns.set(state.category.columns ?? 1);
       } else {
         this.name.set('');
         this.selectedColor.set('blue');
+        this.columns.set(1);
       }
     });
   }
@@ -50,6 +53,7 @@ export class CategoryModal {
       this.bookmarkService.updateCategory(state.category.id, {
         name: n,
         color: this.selectedColor(),
+        columns: this.columns(),
       });
     } else {
       this.bookmarkService.addCategory(n, this.selectedColor());
